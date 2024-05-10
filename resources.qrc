@@ -1,7 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file>map.qml</file>
-        <file alias="markerImage">redmark.png</file>
-    </qresource>
-    <qresource prefix="/new/prefix1"/>
-</RCC>
