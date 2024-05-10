@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>forgetP</class>
+ <widget class="QDialog" name="forgetP">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>695</width>
+    <height>343</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <widget class="QPushButton" name="confirm">
+   <property name="geometry">
+    <rect>
+     <x>210</x>
+     <y>200</y>
+     <width>161</width>
+     <height>34</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    padding: 5px;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    border: 2px solid #792382;
+    color: #792382;
+    border-radius: 5px;
+}
+
+QPushButton:hover {
+    background-color: #43aff7;
+}
+
+
+</string>
+   </property>
+   <property name="text">
+    <string>confirmer</string>
+   </property>
+  </widget>
+  <widget class="QLineEdit" name="email">
+   <property name="geometry">
+    <rect>
+     <x>310</x>
+     <y>130</y>
+     <width>271</width>
+     <height>33</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLineEdit {
+    padding: 5px;
+    border: 2px solid #792382;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #333;
+}
+
+QLineEdit:focus {
+    border-color: #2ecc71; /* Couleur de la bordure lorsqu'il est activé */
+}
+</string>
+   </property>
+   <property name="placeholderText">
+    <string>email</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_3">
+   <property name="geometry">
+    <rect>
+     <x>40</x>
+     <y>130</y>
+     <width>271</width>
+     <height>33</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel {
+    font-size: 22px;
+    color: #792382; /* Couleur du texte */
+    font-weight: bold; /* Gras */
+    /* Ajoutez d'autres styles selon vos besoins */
+}
+</string>
+   </property>
+   <property name="text">
+    <string>Saisir votre mail  </string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>-380</x>
+     <y>-10</y>
+     <width>1081</width>
+     <height>611</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-image: url(&quot;images/back.jpg&quot;);
+</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="confirmC">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>210</x>
+     <y>200</y>
+     <width>161</width>
+     <height>34</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    padding: 5px;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    border: 2px solid #792382;
+    color: #792382;
+    border-radius: 5px;
+}
+
+QPushButton:hover {
+    background-color: #43aff7;
+}
+
+
+</string>
+   </property>
+   <property name="text">
+    <string>confirmer</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_25">
+   <property name="geometry">
+    <rect>
+     <x>210</x>
+     <y>20</y>
+     <width>261</width>
+     <height>33</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QLabel {
+    font-size: 22px;
+    color: #792382; /* Couleur du texte */
+    font-weight: bold; /* Gras */
+    /* Ajoutez d'autres styles selon vos besoins */
+}
+</string>
+   </property>
+   <property name="text">
+    <string>Mot de passe oublie?</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="confirmP">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="geometry">
+    <rect>
+     <x>210</x>
+     <y>200</y>
+     <width>161</width>
+     <height>34</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">QPushButton {
+    padding: 5px;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    border: 2px solid #792382;
+    color: #792382;
+    border-radius: 5px;
+}
+
+QPushButton:hover {
+    background-color: #43aff7;
+}
+
+
+</string>
+   </property>
+   <property name="text">
+    <string>confirmer</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label_2">
+   <property name="geometry">
+    <rect>
+     <x>560</x>
+     <y>0</y>
+     <width>121</width>
+     <height>91</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">
+    background-image: url(&quot;D:/ESPRIT/c++/Projet/untitled/images/logo.png&quot;);</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap>../../../Documents/interface à bechir/interface ├á bechir/images/logo.png</pixmap>
+   </property>
+  </widget>
+  <zorder>confirmC</zorder>
+  <zorder>confirmP</zorder>
+  <zorder>label</zorder>
+  <zorder>confirm</zorder>
+  <zorder>email</zorder>
+  <zorder>label_3</zorder>
+  <zorder>label_25</zorder>
+  <zorder>label_2</zorder>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

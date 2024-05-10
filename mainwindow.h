@@ -2,6 +2,17 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QSqlQuery>
+#include <QMessageBox>
+#include "Menu/menu.h"
+#include "Gestion_Charite/gestion_charite.h"
+#include "Gestion_Evenement/gestion_evenement.h"
+#include "Gestion_Oeuvre/gestion_oeuvre.h"
+#include "Gestion_Participants/gestion_participant.h"
+#include "Gestion_Personnel/gestion_personnel.h"
+#include "Gestion_Personnel/forgetp.h"
+#include "His_Achat/gestion_Achat.h"
+#include "Arduino/arduino.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -15,20 +26,13 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-private slots:
-    void on_pushButton_reset_dons_clicked();
-
-    void on_pushButton_ajouter_dons_clicked();
-
-    void on_afficher_dons_pushbutton_clicked();
-
-    void onDeleteButtonClicked_dons(int row);
-    void onRowUpdateClicked_dons(int row);
-
-    void on_pushButton_update_dons_clicked();
-
 private:
     Ui::MainWindow *ui;
-    int selectedRowForUpdate_dons;
+    Arduino A;
+
+private slots:
+    void on_login_clicked();
+    void on_oublier_clicked();
+    void on_FACE_SCAN_clicked();
 };
 #endif // MAINWINDOW_H

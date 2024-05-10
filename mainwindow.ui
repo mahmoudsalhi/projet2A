@@ -6,205 +6,305 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1323</width>
-    <height>886</height>
+    <width>1111</width>
+    <height>694</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QGroupBox" name="Ajouter_dons_groupbox">
+   <widget class="QFrame" name="frame">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>20</y>
-      <width>411</width>
-      <height>401</height>
+      <x>320</x>
+      <y>100</y>
+      <width>451</width>
+      <height>511</height>
      </rect>
     </property>
-    <property name="title">
-     <string>GroupBox</string>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
     </property>
-    <widget class="QLabel" name="label_id">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>30</y>
-       <width>81</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>id dons</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_destination">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>80</y>
-       <width>81</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>destination</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_montant">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>140</y>
-       <width>81</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>montant</string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_date">
-     <property name="geometry">
-      <rect>
-       <x>20</x>
-       <y>190</y>
-       <width>81</width>
-       <height>41</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>date</string>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="lineEdit_id_dons">
-     <property name="geometry">
-      <rect>
-       <x>110</x>
-       <y>40</y>
-       <width>241</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="readOnly">
-      <bool>true</bool>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="lineEdit_destination">
-     <property name="geometry">
-      <rect>
-       <x>110</x>
-       <y>90</y>
-       <width>241</width>
-       <height>31</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QLineEdit" name="lineEdit_montant">
-     <property name="geometry">
-      <rect>
-       <x>110</x>
-       <y>140</y>
-       <width>241</width>
-       <height>31</height>
-      </rect>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton_ajouter_dons">
-     <property name="geometry">
-      <rect>
-       <x>30</x>
-       <y>320</y>
-       <width>91</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Ajouter</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton_reset_dons">
-     <property name="geometry">
-      <rect>
-       <x>150</x>
-       <y>320</y>
-       <width>101</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>reset</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton_update_dons">
-     <property name="geometry">
-      <rect>
-       <x>280</x>
-       <y>320</y>
-       <width>101</width>
-       <height>31</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Update</string>
-     </property>
-    </widget>
-    <widget class="QDateEdit" name="dateEdit_date_dons">
-     <property name="geometry">
-      <rect>
-       <x>110</x>
-       <y>200</y>
-       <width>181</width>
-       <height>31</height>
-      </rect>
-     </property>
-    </widget>
-   </widget>
-   <widget class="QGroupBox" name="afficher_dons_groupbox">
-    <property name="geometry">
-     <rect>
-      <x>430</x>
-      <y>20</y>
-      <width>691</width>
-      <height>401</height>
-     </rect>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
     </property>
-    <property name="title">
-     <string>GroupBox</string>
-    </property>
-    <widget class="QTableWidget" name="tableWidget_dons">
+    <widget class="QLineEdit" name="email">
      <property name="geometry">
       <rect>
-       <x>10</x>
-       <y>30</y>
-       <width>681</width>
-       <height>291</height>
+       <x>130</x>
+       <y>170</y>
+       <width>201</width>
+       <height>41</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">QLineEdit {
+    padding: 5px;
+    border: 2px solid #43aff7;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #333;
+    padding-left: 30px; /* Ajustez ceci selon la taille de votre image */
+    background-image: url(&quot;C:/Users/Kinza/Documents/login/img login/user (1).svg&quot;);
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: contain;
+}
+
+QLineEdit::placeholder {
+    color: #666; /* Couleur du texte de repère */
+}
+
+QLineEdit:focus {
+    border-color: #2ecc71; /* Couleur de la bordure lorsqu'il est activé */
+}</string>
+     </property>
+     <property name="placeholderText">
+      <string>Nom d'utilisateur</string>
+     </property>
     </widget>
-    <widget class="QPushButton" name="afficher_dons_pushbutton">
+    <widget class="QLabel" name="label">
      <property name="geometry">
       <rect>
-       <x>260</x>
-       <y>330</y>
-       <width>141</width>
+       <x>290</x>
+       <y>180</y>
+       <width>56</width>
        <height>51</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">background-repeat: no-repeat;
+background-image: url(&quot;D:/ESPRIT/c++/Projet/ProjetC++/images/user.svg&quot;);
+</string>
+     </property>
      <property name="text">
-      <string>Afficher</string>
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="mdp">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>250</y>
+       <width>201</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLineEdit {
+    padding: 5px;
+    border: 2px solid #43aff7;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #333;
+    padding-left: 30px; /* Ajustez ceci selon la taille de votre image */
+    background-image: url(&quot;C:/Users/Kinza/Documents/login/img login/key (1).svg&quot;);
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: contain;
+}
+
+QLineEdit::placeholder {
+    color: #666; /* Couleur du texte de repère */
+}
+
+QLineEdit:focus {
+    border-color: #2ecc71; /* Couleur de la bordure lorsqu'il est activé */
+}&amp;</string>
+     </property>
+     <property name="echoMode">
+      <enum>QLineEdit::Password</enum>
+     </property>
+     <property name="placeholderText">
+      <string>Mot de passe..</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_3">
+     <property name="geometry">
+      <rect>
+       <x>300</x>
+       <y>260</y>
+       <width>56</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-repeat: no-repeat;
+background-image: url(&quot;D:/ESPRIT/c++/Projet/ProjetC++/images/key.svg&quot;);
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="login">
+     <property name="geometry">
+      <rect>
+       <x>160</x>
+       <y>310</y>
+       <width>145</width>
+       <height>34</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {
+    /*padding: 10px 20px;*/
+    padding: 5px;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    border: 2px solid #792382;
+    color: #792382;
+    border-radius: 5px;
+    background-image: url(&quot;D:/ESPRIT/c++/Projet/ProjetC++/images/log-in.svg&quot;);
+    background-repeat: no-repeat;
+    background-position: left center;
+    padding-left: 30px; /* Ajustez ceci selon la taille de votre image */
+	background-color:white;
+}
+
+QPushButton:hover {
+    background-color: #43aff7;
+}
+
+
+</string>
+     </property>
+     <property name="text">
+      <string>Se connecter</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="oublier">
+     <property name="geometry">
+      <rect>
+       <x>160</x>
+       <y>370</y>
+       <width>145</width>
+       <height>34</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {
+    /*padding: 10px 20px;*/
+    padding: 5px;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    border: 2px solid #792382;
+    color: #792382;
+    border-radius: 5px;
+}
+
+QPushButton:hover {
+    background-color: #43aff7;
+}
+
+</string>
+     </property>
+     <property name="text">
+      <string>oublier</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_11">
+     <property name="geometry">
+      <rect>
+       <x>170</x>
+       <y>90</y>
+       <width>121</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QLabel {
+    font-size: 22px;
+    color: #792382; /* Couleur du texte */
+    font-weight: bold; /* Gras */
+    /* Ajoutez d'autres styles selon vos besoins */
+}
+</string>
+     </property>
+     <property name="text">
+      <string>Bienvenue</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_2">
+     <property name="geometry">
+      <rect>
+       <x>170</x>
+       <y>20</y>
+       <width>121</width>
+       <height>91</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">
+    background-image: url(&quot;D:/ESPRIT/c++/Projet/ProjetC++/images/logo.png&quot;);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="FACE_SCAN">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>470</y>
+       <width>251</width>
+       <height>34</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {
+    /*padding: 10px 20px;*/
+    padding: 5px;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    border: 2px solid #792382;
+    color: #792382;
+    border-radius: 5px;
+}
+
+QPushButton:hover {
+    background-color: #43aff7;
+}
+
+</string>
+     </property>
+     <property name="text">
+      <string>Reconnaissance faciale</string>
      </property>
     </widget>
    </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>1111</width>
+      <height>681</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">
+background-image: url(&quot;D:/ESPRIT/c++/Projet/ProjetC++/images/login.png&quot;);
+</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <zorder>label_4</zorder>
+   <zorder>frame</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1323</width>
-     <height>22</height>
+     <width>1111</width>
+     <height>26</height>
     </rect>
    </property>
   </widget>
