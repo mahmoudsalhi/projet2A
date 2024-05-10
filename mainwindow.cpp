@@ -1,19 +1,25 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include <QMessageBox>
+#include "dons.h"
+#include <QDate>
+#include <QSqlQuery>
+#include <QSqlError>
+#include <QSqlDatabase>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    int ret=A.connect_arduino(); // lancer la connexion à arduino
-    switch(ret){
-    case(0):qDebug()<< "arduino is available and connected to : "<< A.getarduino_port_name();
-        break;
-    case(1):qDebug() << "arduino is available but not connected to :" <<A.getarduino_port_name();
-       break;
-    case(-1):qDebug() << "arduino is not available";
-    }
+
+    // table dons
+    ui->tableWidget_dons->setColumnCount(6);
+    ui->tableWidget_dons->setHorizontalHeaderLabels(QStringList() << "ID" << "destination" << "montant"  << "date" << "Delete" << "Update");
+    int rowHeight = 70; // Adjust this value as needed
+    int rowWidth = 100; // Adjust this value as needed
+    ui->tableWidget_dons->verticalHeader()->setDefaultSectionSize(rowHeight);
+    ui->tableWidget_dons->horizontalHeader()->setDefaultSectionSize(rowWidth);
 }
 
 MainWindow::~MainWindow()
@@ -21,118 +27,134 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-//BEGIN LOGIN
-void MainWindow::on_login_clicked() {
-    QString email = ui->email->text();
-    QString mdp = ui->mdp->text();
+void MainWindow::on_pushButton_reset_dons_clicked()
+{
+    ui->lineEdit_id_dons->clear();
+    ui->lineEdit_destination->clear();
+    ui->lineEdit_montant->clear();
+    ui->dateEdit_date_dons->clear();
+}
+
+void MainWindow::on_pushButton_ajouter_dons_clicked()
+{
+    dons D;
+    D.setdestination(ui->lineEdit_destination->text());
+    QString montantText = ui->lineEdit_montant->text();
+    double price = montantText.toDouble();
+    D.setmontant(price);
+
+    D.setdate(ui->dateEdit_date_dons->date());
+
+    // Insert data into the database
     QSqlQuery query;
-    query.prepare("SELECT role FROM employee WHERE mdp = :mdp AND email = :email;");
-    query.bindValue(":email", email);
-    query.bindValue(":mdp", mdp);
+    query.prepare("INSERT INTO DON (DESTINATION, MONTANT, DATE_DON)"
+                  "VALUES (:dest, :montant, :dat)");
+    query.bindValue(":dest", D.getdestination());
+    query.bindValue(":montant", D.getmontant());
+    query.bindValue(":dat", D.getdate());
 
     if (query.exec()) {
-        if (query.next()) {
-            if(query.value(0).toString()=="Gestion_Personnels"){
-                Menu* w = new Menu();
-                w->show();
-                this->close();
-            }
-            else if (query.value(0).toString()=="Gestion_Participants") {
-                gestion_participant* w = new gestion_participant();
-                w->show();
-                this->close();
-            }
-            else if (query.value(0).toString()=="Gestion_Oeuvres") {
-                gestion_oeuvre* w = new gestion_oeuvre();
-                w->show();
-                this->close();
-            }
-            else if (query.value(0).toString()=="Gestion_Charites") {
-                gestion_charite* w = new gestion_charite();
-                w->show();
-                this->close();
-            }
-            else if (query.value(0).toString()=="Gestion_Evenements") {
-                gestion_evenement* w = new gestion_evenement();
-                w->show();
-                this->close();
-            }
-            else if (query.value(0).toString()=="Employee") {
-                gestion_Achat* w = new gestion_Achat();
-                w->show();
-                this->close();
-            }
-        } else {
-            QMessageBox::critical(this, "Erreur", "Veuillez vérifier votre adresse e-mail et votre mot de passe.");
+        QMessageBox::information(this, tr("Success"), tr("Data saved successfully."));
+    } else {
+        QMessageBox::warning(this, tr("Error"), tr("Failed to save data: ") + query.lastError().text());
+    }
+    ui->lineEdit_id_dons->clear();
+    ui->lineEdit_destination->clear();
+    ui->lineEdit_montant->clear();
+    ui->dateEdit_date_dons->clear();
+}
+
+void MainWindow::on_afficher_dons_pushbutton_clicked(){
+    // Create a QSqlQueryModel and set the query
+    QSqlQueryModel *model = new QSqlQueryModel(this);
+    model->setQuery("SELECT ID, DESTINATION, MONTANT, DATE_DON FROM DONS");
+    if (model->lastError().isValid()) {
+        QMessageBox::critical(this, tr("Error"), tr("Failed to retrieve data: ") + model->lastError().text());
+        delete model;
+        return;
+    }
+    // Set the model to the table widget
+    ui->tableWidget_dons->setRowCount(model->rowCount());
+    ui->tableWidget_dons->setColumnCount(model->columnCount() + 2); // Add two columns for the delete and update buttons
+    for (int row = 0; row < model->rowCount(); ++row) {
+        for (int col = 0; col < model->columnCount(); ++col) {
+            QTableWidgetItem *item = new QTableWidgetItem;
+            item->setFlags(item->flags() & ~Qt::ItemIsEditable); // Make cells read-only
+            item->setData(Qt::DisplayRole, model->data(model->index(row, col)));
+            item->setTextAlignment(Qt::AlignCenter); // Center the text
+            ui->tableWidget_dons->setItem(row, col, item);
         }
+        // Add delete button to the second last column
+        QPushButton *deleteButton = new QPushButton("Delete");
+        deleteButton->setStyleSheet("QPushButton { font: 700 16pt 'Sitka Subheading'; background-color: red; }");
+        connect(deleteButton, &QPushButton::clicked, this, [this, row]() {
+            onDeleteButtonClicked_dons(row);
+        });
+        ui->tableWidget_dons->setCellWidget(row, model->columnCount(), deleteButton);
+
+        // Add update button to the last column
+        QPushButton *updateButton = new QPushButton("Update");
+        updateButton->setStyleSheet("QPushButton { font: 700 16pt 'Sitka Subheading'; background-color: green; }");
+        connect(updateButton, &QPushButton::clicked, this, [this, row]() {
+            onRowUpdateClicked_dons(row); // Call the function to handle row update
+        });
+        ui->tableWidget_dons->setCellWidget(row, model->columnCount() + 1, updateButton);
+    }
+    delete model;
+}
+
+void MainWindow::onDeleteButtonClicked_dons(int row)
+{
+    QSqlTableModel *model = static_cast<QSqlTableModel*>(ui->tableWidget_dons->model());
+    QModelIndex index = model->index(row, 0);
+    int id = model->data(index).toInt();
+    // Perform deletion from the database
+    QSqlQuery query;
+    query.prepare("DELETE FROM DONS WHERE ID = :id");
+    query.bindValue(":id", id);
+    if (query.exec()) {
+        // Update the table widget after successful deletion
+        ui->tableWidget_dons->removeRow(row);
+    } else {
+        QMessageBox::critical(this, tr("Error"), tr("Failed to delete row: ") + query.lastError().text());
     }
 }
-//END LOGIN
 
-//BEGIN FACE_SCAN
-void MainWindow::on_FACE_SCAN_clicked() {
+void MainWindow::onRowUpdateClicked_dons(int row) {
+    int Id = ui->tableWidget_dons->item(row, 0)->text().toInt();
+    // Get other data from the selected row
+    QString destination = ui->tableWidget_dons->item(row, 1)->text();
+    QString montant = ui->tableWidget_dons->item(row, 2)->text();
+    QDate date = QDate::fromString(ui->tableWidget_dons->item(row, 3)->text(), "yyyy-MM-dd");
+    // Populate the form fields with the data
+    ui->lineEdit_id_dons->setText(QString::number(Id));
+    ui->lineEdit_destination->setText(destination);
+    ui->lineEdit_montant->setText(montant);
+    ui->dateEdit_date_dons->setDate(date);
+    selectedRowForUpdate_dons = Id;
+}
 
-    QProcess process;
-    A.write_to_arduino("AAAAAAActiver la camera");
-    QString pythonCommand = "python";
-    QStringList scriptArgs;
-    scriptArgs << "C:/Users/azizz/Downloads/ProjetC++/PythonScripts/face/main.py";
+void MainWindow::on_pushButton_update_dons_clicked()
+{
+    int productId = ui->lineEdit_id_dons->text().toInt();
+    QString dest = ui->lineEdit_destination->text();
+    double mont = ui->lineEdit_montant->text().toDouble();
+    QDate date_don = ui->dateEdit_date_dons->date();
 
+    QSqlQuery query;
+    query.prepare("UPDATE DONS SET DESTINATION = :dest, MONTANT = :mont, DATE_DON = :dat WHERE ID = :id");
+    query.bindValue(":dest", dest);
+    query.bindValue(":mont", mont);
+    query.bindValue(":dat", date_don);
 
-    process.start(pythonCommand, scriptArgs);
-
-    process.waitForFinished(-1);
-    QString role = process.readAllStandardOutput();
-    if(role.contains("hahaha")){
-        QTextToSpeech *tts = new QTextToSpeech(this);
-        tts->say(role);
-    }
-    if(role.contains("Gestion_Personnels")){
-        Menu* w = new Menu();
-        w->show();
-        this->close();
-        A.write_to_arduino("visage trouve");
-    }
-    else if (role.contains("Gestion_Participants")) {
-        gestion_participant* w = new gestion_participant();
-        w->show();
-        this->close();
-        A.write_to_arduino("vvvvvvvisage trouve");
-    }
-    else if (role.contains("Gestion_Oeuvres")) {
-        gestion_oeuvre* w = new gestion_oeuvre();
-        w->show();
-        this->close();
-        A.write_to_arduino("visage trouve");
-    }
-    else if (role.contains("Gestion_Charites")) {
-        gestion_charite* w = new gestion_charite();
-        w->show();
-        this->close();
-        A.write_to_arduino("visage trouve");
-    }
-    else if (role.contains("Gestion_Evenements")) {
-        gestion_evenement* w = new gestion_evenement();
-        w->show();
-        this->close();
-        A.write_to_arduino("visage trouve");
-    }
-    else if (role.contains("Employee")) {
-        gestion_Achat* w = new gestion_Achat();
-        w->show();
-        this->close();
-        A.write_to_arduino("visage trouve");
-    }
-    else if (role.contains("Unkown")){
-        QMessageBox::critical(this, "System", "visage non reconnu!!");
+    query.bindValue(":id", productId);
+    if (query.exec()) {
+        QMessageBox::information(this, tr("Success"), tr("Data updated successfully."));
+        ui->lineEdit_id_dons->clear();
+        ui->lineEdit_destination->clear();
+        ui->lineEdit_montant->clear();
+        ui->dateEdit_date_dons->clear();
+    } else {
+        QMessageBox::warning(this, tr("Error"), tr("Failed to update data: ") + query.lastError().text());
     }
 }
-//END FACE_SCAN
-
-//END FORGET
-void MainWindow::on_oublier_clicked(){
-    forgetP* w = new forgetP();
-    w->show();
-    this->close();
-}
-//END FORGET
