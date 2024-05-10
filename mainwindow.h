@@ -1,0 +1,42 @@
+#ifndef MAINWINDOW_H
+#define MAINWINDOW_H
+
+#include <QMainWindow>
+
+
+namespace Ui {
+class MainWindow;
+}
+
+class MainWindow : public QMainWindow
+{
+    Q_OBJECT
+
+public:
+    explicit MainWindow(QWidget *parent = nullptr);
+    ~MainWindow();
+    QDate getDateDebutForId(int id);
+
+private slots:
+    void on_pushButton_clicked();
+    void on_pushButton_refresh_pressed();
+    void onDeleteButtonClicked(int n);
+    void on_pushButton_2_clicked();
+    void onRowUpdateClicked(int row);
+    void on_pushButton_6_clicked();
+    void on_pushButton_5_clicked();
+    void on_pushButton_7_clicked();
+    void on_pushButton_3_clicked();
+    void on_pushButton_4_clicked();
+    void on_pushButton_8_clicked();
+    void on_pushButton_9_clicked();
+
+    void on_calendarWidgetx_clicked(const QDate &date);
+
+private:
+    Ui::MainWindow *ui;
+    int selectedRowForUpdate;
+
+};
+
+#endif // MAINWINDOW_H
